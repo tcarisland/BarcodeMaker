@@ -29,7 +29,8 @@ public class BarcodeMakerMainPanel extends JPanel {
 		btnWritesvg.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Barcode bc = new Barcode(textField.getText());
+				Code128Parser parser = new Code128Parser();
+				Barcode bc = new Barcode(parser.parse(textField.getText()));
 				bc.writeSVG("Barcode.svg");
 			}			
 		});

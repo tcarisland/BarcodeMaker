@@ -17,6 +17,14 @@ public class Barcode {
 		barWidth = 1;
 		barHeight = 50;
 	}
+
+	public Barcode(String code, String barWidth, String barHeight) {
+		this.code = Barcode.removeNonNumeric(code);
+		this.xOffset = 0;
+		this.yOffset = 0;
+		this.barWidth = Barcode.parse(barWidth);
+		this.barHeight = Barcode.parse(barHeight);
+	}
 	
 	public Barcode(String code, String xOffset, String yOffset, String barWidth, String barHeight) {
 		this.code = Barcode.removeNonNumeric(code);
@@ -25,7 +33,24 @@ public class Barcode {
 		this.barWidth = Barcode.parse(barWidth);
 		this.barHeight = Barcode.parse(barHeight);
 	}	
-
+	
+	public static String convertPattern(String s) {
+		String retval = "";
+		for(int i = 0; i < s.length(); i++) {
+			if(!Character.isDigit(s.charAt(i)))
+				return "";
+			int q = Integer.parseInt("" + s.charAt(i));
+			for(; q > 0; q--) {
+				if(i % 2 == 0) {
+					retval += "" + 1;
+				} else {
+					retval += "" + 0;
+				}
+			}
+		}
+		return retval;
+	}
+	
 	public static int parse(String s) {
 		String n = Barcode.removeNonNumeric(s);
 		if(n.length() != 0)
