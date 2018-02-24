@@ -11,7 +11,11 @@ public class Code128Parser {
 	
 	public static void main(String args[]) {
 		Code128Parser parser = new Code128Parser();
-		System.out.println(parser.barcodePattern(args[0]));
+		String pattern = parser.barcodePattern(args[0]);
+		System.out.println("Input: " + args[0] + "\n");
+		System.out.println("Pattern :" + pattern + "\n");
+		System.out.println(pattern);
+		System.out.println("Argument: " + args[0]);
 	}
 	
 	public Code128Parser() {
@@ -47,7 +51,7 @@ public class Code128Parser {
 		ArrayList<Code128Char> line = new ArrayList<Code128Char>();
 		Code128Char start, stop;
 		start = table.get("StartCodeB");
-		stop = table.get("Stop");
+		stop = table.get("StopPattern");
 		line.add(start);
 		int sum = start.getCodeval();
 		for(int i = 0; i < input.length(); i++) {

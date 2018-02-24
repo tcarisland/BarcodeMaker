@@ -64,11 +64,12 @@ public class Barcode {
 	}
 
 	public String createBarcodeStandaloneSVG() {
+		String fill = "fill:rgb(0, 0, 0)";		
 		String s = "";
 		String rectangles = this.createBarcodeRectangles();
 		s += "<?xml version=\"1.0\" standalone=\"no\"?>\n";
 		s += "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n";
-		s += "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"" + (widthSum + 10) + "\" height=\"" +(barHeight + 10)+ "\">\n";
+		s += "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"" + (widthSum) + "\" height=\"" +(barHeight)+ "\">\n";
 		s += rectangles;
 		s += "</svg>\n";
 		return s;
@@ -79,9 +80,9 @@ public class Barcode {
 		return ""
 				+ "<svg "
 				+ "height=\""
-				+ (barHeight + 10)
+				+ (barHeight)
 				+ "\" width=\""
-				+ (widthSum + 10)
+				+ (widthSum)
 				+ ">\n"
 				+ rectangles
 				+ "\n</svg>";
@@ -98,11 +99,10 @@ public class Barcode {
 		for(int i = 0; i < code.length(); i++) {
 			int width = Integer.parseInt("" + code.charAt(i)) * barWidth;
 			int barcolor = 0;
-			if(i % 2 == 1) {
-				barcolor = 255;
+			if(i % 2 == 0) {
+				String fill = "fill:rgb(" +barcolor+ ", " +barcolor+ ", " +barcolor+ ")";
+				rectangles += "<rect x=\"" +widthSum+ "\" y=\"" + yOffset + "\" width=\"" + width + "\" height=\"" +barHeight+ "\" style=\"" +fill+ "\" />\n";
 			}
-			String fill = "fill:rgb(" +barcolor+ ", " +barcolor+ ", " +barcolor+ ")";
-			rectangles += "<rect x=\"" +widthSum+ "\" y=\"" + yOffset + "\" width=\"" + width + "\" height=\"" +barHeight+ "\" style=\"" +fill+ "\" />\n";
 			widthSum += width;
 		}
 		return rectangles;
